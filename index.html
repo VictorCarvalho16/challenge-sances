@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- Font Awesome 5.0 CDN -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <title>Pedidos</title>
+  </head>
+  <body class="bg-dark">
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+            <h1 class="text-center text-light mx-auto"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Pedido</h1>
+        </nav>
+    </header>
+
+    <main id="main" class="container text-light my-5 ">
+        <table class="table table-dark table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Número do pedido</th>
+                <th scope="col">Data do pedido</th>
+                <th scope="col">Descricao</th>
+                <th scope="col">Situação Pedido</th>
+                <th scope="col">Muda Situação</th>
+                <th scope="col">Editar Pedido</th>
+              </tr>
+            </thead>
+            <tbody id="table-body" class="text-center">
+              
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-outline-success float-right mr-3" id="new-order"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+    </main>
+
+    <!-- Modal para mudar Situação -->
+    <div class="modal fade" id="modalSituation" tabindex="-1" role="dialog" aria-labelledby="modalSituation" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Mudar Situação</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-footer justify-content-center">
+              <button type="button" class="btn btn-danger" onclick="changeSituation(false)" data-dismiss="modal">Cancelado</button>
+              <button type="button" class="btn btn-primary" onclick="changeSituation(true)" data-dismiss="modal">Aprovado</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <footer class="page-footer container-fluid text-center bg-dark text-light p-3">
+        <p><a class="alert-link" href="https://github.com/VictorCarvalho16">Victor Carvalho</a> &copy;2020</p>
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script src="index.js"></script>
+  </body>
+</html>
