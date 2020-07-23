@@ -125,7 +125,7 @@ function formatData() {
 }
 
 function goBack() {
-  window.location.href = 'http://127.0.0.1:5500/'
+  window.location.href = '../index.html'
 }
 
 function removeItem(id) {

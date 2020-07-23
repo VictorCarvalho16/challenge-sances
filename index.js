@@ -17,11 +17,11 @@ function saveOrder() {
 function goToOrderPage(operation, orderId) {
   switch (operation) {
     case 'create':
-      window.location.href = "http://127.0.0.1:5500/pedido"
+      window.location.href = "./pedido/index.html"
       break;
 
     case 'update':
-      window.location.href = `http://127.0.0.1:5500/pedido/?id=${orderId}`
+      window.location.href = `./pedido/index.html?id=${orderId}`
       break;
   
     default:
