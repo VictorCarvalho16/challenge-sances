@@ -1,10 +1,9 @@
 {
   "orders": [
     {
-      "id": 0,
       "date": "22/07/2020",
       "description": "Venda de computador",
-      "situation": "Em análise",
+      "situation": "Aprovado",
       "itens": [
         {
           "id": 10,
@@ -20,13 +19,13 @@
           "value": 120.55,
           "discount": 5
         }
-      ]
+      ],
+      "id": 0
     },
     {
-      "id": 1,
       "date": "22/07/2020",
       "description": "Venda de computador",
-      "situation": "Em análise",
+      "situation": "Cancelado",
       "itens": [
         {
           "id": 10,
@@ -42,7 +41,8 @@
           "value": 120.55,
           "discount": 5
         }
-      ]
+      ],
+      "id": 1
     }
   ]
 }
