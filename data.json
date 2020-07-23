@@ -25,7 +25,7 @@
     {
       "date": "22/07/2020",
       "description": "Venda de computador",
-      "situation": "Cancelado",
+      "situation": "Em Análise",
       "itens": [
         {
           "id": 10,
@@ -40,9 +40,38 @@
           "amount": 1,
           "value": 120.55,
           "discount": 5
+        },
+        {
+          "id": 50,
+          "name": "led",
+          "amount": 10,
+          "value": 10.99,
+          "discount": 0
         }
       ],
       "id": 1
+    },
+    {
+      "date": "21/07/2020",
+      "description": "Mercado",
+      "situation": "Em Análise",
+      "itens": [
+        {
+          "id": 789123,
+          "name": "Arroz 5kg",
+          "amount": 2,
+          "value": 15,
+          "discount": 7.8
+        },
+        {
+          "id": 789321,
+          "name": "Feijão 1kg",
+          "amount": 5,
+          "value": 3.89,
+          "discount": 2
+        }
+      ],
+      "id": 2
     }
   ]
 }

@@ -2,16 +2,27 @@ const orderDateInput = document.getElementById('orderDate')
 const orderDescriptionInput = document.getElementById('orderDescription')
 const formItem = document.getElementById('formItem')
 const tableBody = document.getElementById('table-body')
+const saveOrderButton = document.getElementById('saveOrder')
+
+const baseURL = 'http://localhost:3000/orders'
+const headers = new Headers({"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"}) 
 
 let orderItems = []
+let operation
 
 function loadPage() {
   const orderId = new URLSearchParams(window.location.search).get('id');
   if (orderId) {
+    operation = 'update'
     getSingleOrder(orderId).then(order => {
-
+      orderItems = order.itens
+      orderDateInput.value = convertDate(order.date)
+      orderDescriptionInput.value = order.description
+      localStorage.setItem('orderId', order.id)
+      renderItems()
     })
   } else {
+    operation = 'create'
     orderDateInput.value = getDate()
   }
 }
@@ -26,7 +37,12 @@ function getDate() {
 }
 
 function convertDate(date) {
-  return 0
+  if (date.indexOf('/') > -1) {
+    const [day, mounth, year] = date.split('/')
+    return `${year}-${mounth}-${day}`
+  }
+  const [year, mounth, day] = date.split('-')
+  return `${day}/${mounth}/${year}`
 }
 
 async function getSingleOrder(id) {
@@ -34,21 +50,6 @@ async function getSingleOrder(id) {
 
   return response.json()
 }
-
-formItem.addEventListener('submit', event => {
-  event.preventDefault()
-  const item = {
-    "id": convertValues(document.getElementById('itemId').value),
-    "name": document.getElementById('itemName').value,
-    "amount": convertValues(document.getElementById('itemAmount').value),
-    "value": convertValues(document.getElementById('itemValue').value),
-    "discount": convertValues(document.getElementById('itemDiscount').value),
-  }
-  orderItems.push(item)
-  console.log(orderItems)
-  cleanItemData()
-  renderItems()
-})
 
 function convertValues(value) {
   if (value.indexOf(',') > -1) {
@@ -60,7 +61,7 @@ function convertValues(value) {
   }
 }
 
-function convertvaluePtBr(value) {return 'R$ ' + value.toString().replace('.', ',')}
+function convertvaluePtBr(value) { return 'R$ ' + value.toFixed(2).toString().replace('.', ',') }
 
 function cleanItemData() {
   document.getElementById('itemId').value = ''
@@ -74,7 +75,8 @@ function renderItems() {
   tableBody.innerHTML = ''
   let itemsTotal = 0
   orderItems.forEach(item => {
-    const itemTotal = item.amount + item.value 
+    let itemTotal = item.amount * item.value
+    itemTotal -= itemTotal * (item.discount / 100)
     tableBody.innerHTML += `
     <tr>
       <th scope="col">${item.id}</th>
@@ -82,7 +84,7 @@ function renderItems() {
       <td>${item.amount}</td>
       <td>${convertvaluePtBr(item.value)}</td>
       <td>${item.discount} %</td>
-      <td>${itemTotal}</td>
+      <td>${convertvaluePtBr(itemTotal)}</td>
     </tr>`
     itemsTotal += itemTotal 
   })
@@ -93,6 +95,63 @@ function renderItems() {
       <td></td>
       <td></td>
       <td></td>
-      <td>${itemsTotal}</td>
+      <td>${convertvaluePtBr(itemsTotal)}</td>
     </tr>`
 }
+
+
+function updateOrder() {
+  const actualId = localStorage.getItem('orderId')
+  const body = formatData()
+  fetch(`${baseURL}/${actualId}`, { method: 'put', body, headers })
+  goBack()
+}
+
+function createOrder() {
+  const body = formatData()
+  fetch(`${baseURL}`, { method: 'post', body, headers })
+  goBack()
+}
+
+function formatData() {
+  const order = {
+    date: convertDate(orderDateInput.value),
+    description: orderDescriptionInput.value,
+    situation: "Em Análise",
+    itens: [ ...orderItems ]
+  }
+  return JSON.stringify(order)
+}
+
+function goBack() {
+  window.location.href = 'http://127.0.0.1:5500/'
+}
+
+formItem.addEventListener('submit', event => {
+  event.preventDefault()
+  const item = {
+    "id": convertValues(document.getElementById('itemId').value),
+    "name": document.getElementById('itemName').value,
+    "amount": convertValues(document.getElementById('itemAmount').value),
+    "value": convertValues(document.getElementById('itemValue').value),
+    "discount": convertValues(document.getElementById('itemDiscount').value),
+  }
+  orderItems.push(item)
+  cleanItemData()
+  renderItems()
+})
+
+saveOrderButton.addEventListener('click', () => {
+  switch (operation) {
+    case 'create':
+      createOrder()
+      break;
+
+    case 'update':
+      updateOrder()
+      break;
+  
+    default:
+      break;
+  }
+})
