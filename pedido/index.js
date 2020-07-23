@@ -85,6 +85,7 @@ function renderItems() {
       <td>${convertvaluePtBr(item.value)}</td>
       <td>${item.discount} %</td>
       <td>${convertvaluePtBr(itemTotal)}</td>
+      <td><td><button onclick="removeItem(${item.id})" type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalOrder"><i class="fa fa-trash" aria-hidden="true"></i></button></td></td>
     </tr>`
     itemsTotal += itemTotal 
   })
@@ -125,6 +126,11 @@ function formatData() {
 
 function goBack() {
   window.location.href = 'http://127.0.0.1:5500/'
+}
+
+function removeItem(id) {
+  orderItems = orderItems.filter( item => item.id == id)
+  renderItems()
 }
 
 formItem.addEventListener('submit', event => {
